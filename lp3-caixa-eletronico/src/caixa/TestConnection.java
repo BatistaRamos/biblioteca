@@ -1,3 +1,4 @@
+package caixa;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -6,7 +7,7 @@ import java.sql.Statement;
 /**
  * 
  * @author marco.mangan@gmail.com
- *
+ * @see http://docs.oracle.com/javase/tutorial/jdbc/overview/index.html
  */
 public class TestConnection {
 
