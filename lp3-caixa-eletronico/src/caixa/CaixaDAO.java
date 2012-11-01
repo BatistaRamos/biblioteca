@@ -5,10 +5,31 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * A classe <code>CaixaDAO</code> representa um
+ * objecto de acesso a dados (data access object - DAO).
+ * 
+ * Todas as operações em SQL e JDBC da aplicação são 
+ * realizadas pelo DAO.
+ * 
+ * @author marco.mangan@gmail.com
+ *
+ */
 public class CaixaDAO {
 
-	private String selectFindConta = "select * from contas where numero = ? and senha = ?";
+	private static final String selectFindConta = "select * from contas where numero = ? and senha = ?";
 
+	/**
+	 * Retorna um objeto com os dados da conta indicada
+	 * por <code>numero</code> e com a senha <code>senha</code>.
+	 * 
+	 * @param numero o número da conta, não pode ser null.
+	 * @param senha a senha da conta, não pode ser null.
+	 * 
+	 * @return null caso o número da conta não exista, 
+	 * caso contrário, retorna um objeto Conta com os dados da conta
+	 * 
+	 */
 	public Conta findConta(String numero, String senha) {
 		if (numero == null) {
 			throw new IllegalArgumentException(
@@ -20,7 +41,6 @@ public class CaixaDAO {
 		}
 		Conta c = null;
 
-		// TODO: select * from contas where numero = ? and senha = ?
 		try {
 			Connection con = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/caixa", "postgres",
@@ -39,7 +59,6 @@ public class CaixaDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//
 
 		return c;
 	}
