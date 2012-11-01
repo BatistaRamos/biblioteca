@@ -1,0 +1,12 @@
+-- Database: caixa
+-- marco.mangan@gmail.com
+-- http://jdbc.postgresql.org/download/postgresql-9.2-1000.jdbc4.jar
+-- DROP DATABASE caixa;
+
+CREATE DATABASE caixa
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Portuguese_Brazil.1252'
+       LC_CTYPE = 'Portuguese_Brazil.1252'
+       CONNECTION LIMIT = -1;
