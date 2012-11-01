@@ -27,7 +27,7 @@ ALTER TABLE contas
   OWNER TO postgres;
   
   
-REATE TABLE operacoes
+CREATE TABLE operacoes
 (
   id serial NOT NULL,
   conta integer,
@@ -51,5 +51,4 @@ CREATE INDEX fki_conta_pk
   ON operacoes
   USING btree
   (conta );
-
        

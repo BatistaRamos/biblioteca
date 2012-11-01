@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 public class CaixaDAO {
 
 	private static final String selectFindConta = "select * from contas where numero = ? and senha = ?";
+	private static final String insertOperacao = "insert into operacoes(conta, valor) values (?, ?)";
 
 	/**
 	 * Retorna um objeto com os dados da conta indicada
@@ -58,7 +59,9 @@ public class CaixaDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			// FIXME: comunicar erro ao programa
 		}
+		// FIXME: fechar conexões
 
 		return c;
 	}
@@ -72,8 +75,23 @@ public class CaixaDAO {
 					"O valor deve ser maior ou igual a um centavo!");
 		}
 
-		// TODO: INSERT
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/caixa", "postgres",
+					"senacrs");
 
+			PreparedStatement stmt = con.prepareStatement(insertOperacao);
+			stmt.setInt(1, c.getId());
+			stmt.setDouble(2, valor);
+			int r = stmt.executeUpdate();
+			if (r != 1) {
+				throw new RuntimeException("Erro ao inserir operação");
+			}
+		} catch (Exception e) {
+			// FIXME: comunicar erro ao programa
+			e.printStackTrace();
+		}
+		// FIXME: fechar conexões
 	}
 
 	public static void main(String[] args) {
@@ -83,6 +101,7 @@ public class CaixaDAO {
 			System.out.println("Conta não encontrada!");
 		} else {
 			System.out.println(c);
+			caixa.depositar(c, 112.45);
 		}
 	}
 }
