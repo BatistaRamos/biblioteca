@@ -3,6 +3,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * 
+ * @author marco.mangan@gmail.com
+ *
+ */
 public class TestConnection {
 
 	public static void main(String[] args) throws Exception {
