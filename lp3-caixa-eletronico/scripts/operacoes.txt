@@ -1,0 +1,29 @@
+-- Table: operacoes
+
+-- DROP TABLE operacoes;
+
+CREATE TABLE operacoes
+(
+  id serial NOT NULL,
+  conta integer,
+  valor numeric,
+  CONSTRAINT operacoes_pkey PRIMARY KEY (id ),
+  CONSTRAINT conta_pk FOREIGN KEY (conta)
+      REFERENCES contas (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE operacoes
+  OWNER TO postgres;
+
+-- Index: fki_conta_pk
+
+-- DROP INDEX fki_conta_pk;
+
+CREATE INDEX fki_conta_pk
+  ON operacoes
+  USING btree
+  (conta );
+

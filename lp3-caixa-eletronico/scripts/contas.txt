@@ -1,0 +1,17 @@
+-- Table: contas
+
+-- DROP TABLE contas;
+
+CREATE TABLE contas
+(
+  id serial NOT NULL,
+  cpf character varying,
+  numero character varying,
+  senha character varying,
+  CONSTRAINT contas_pkey PRIMARY KEY (id )
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE contas
+  OWNER TO postgres;

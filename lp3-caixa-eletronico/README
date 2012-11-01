@@ -1,0 +1,9 @@
+Caixa eletrônico
+================
+
+Utiliza JDK 1.7.
+Altere sua configuração de projeto ao compilar com JDK 1.6.
+
+Contém driver do PostgreSQL.
+
+Utiliza o padrão de projeto DAO.
