@@ -1,53 +1,40 @@
-package caixa;
+package biblioteca;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- * A classe <code>CaixaDAO</code> representa um
- * objecto de acesso a dados (data access object - DAO).
- * 
- * Todas as operações em SQL e JDBC da aplicação são 
- * realizadas pelo DAO.
- * 
- * @author marco.mangan@gmail.com
- *
- */
-public class CaixaDAO {
 
-	private static final String selectFindConta = "select * from contas where numero = ? and senha = ?";
-	private static final String insertOperacao = "insert into operacoes(conta, valor) values (?, ?)";
+import biblioteca.cadastro;
 
-	/**
-	 * Retorna um objeto com os dados da conta indicada
-	 * por <code>numero</code> e com a senha <code>senha</code>.
-	 * 
-	 * @param numero o número da conta, não pode ser null.
-	 * @param senha a senha da conta, não pode ser null.
-	 * 
-	 * @return null caso o número da conta não exista, 
-	 * caso contrário, retorna um objeto Conta com os dados da conta
-	 * 
-	 */
-	public Conta findConta(String numero, String senha) {
+public class bibliotecaDAO {
+
+
+
+
+
+	private static final String selectFindcadastro = "select * from cadastros where numero = ? and senha = ?";
+	private static final String insertOperacao = "insert into operacoes(cadastro, valor) values (?, ?)";
+
+	
+	public cadastro findcadastro(String numero, String senha) {
 		if (numero == null) {
 			throw new IllegalArgumentException(
-					"O número da conta não pode ser null.");
+					"O número da cadastro não pode ser null.");
 		}
 		if (senha == null) {
 			throw new IllegalArgumentException(
-					"A senha da conta não pode ser null.");
+					"A senha da cadastro não pode ser null.");
 		}
-		Conta c = null;
+		cadastro c = null;
 
 		try {
 			Connection con = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/caixa", "postgres",
+					"jdbc:postgresql://localhost:5432/biblioteca", "postgres",
 					"senacrs");
 
-			PreparedStatement stmt = con.prepareStatement(selectFindConta);
+			PreparedStatement stmt = con.prepareStatement(selectFindcadastro);
 			stmt.setString(1, numero);
 			stmt.setString(2, senha);
 			ResultSet rs = stmt.executeQuery();
@@ -55,7 +42,7 @@ public class CaixaDAO {
 				int id = rs.getInt("id");
 				String cpf = rs.getString("cpf");
 				String num = rs.getString("numero");
-				c = new Conta(id, num, cpf);
+				c = new cadastro(id, num, cpf);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,9 +53,9 @@ public class CaixaDAO {
 		return c;
 	}
 
-	public void depositar(Conta c, double valor) {
+	public void depositar(cadastro c, double valor) {
 		if (c == null) {
-			throw new IllegalArgumentException("A conta não pode ser null!");
+			throw new IllegalArgumentException("A cadastro não pode ser null!");
 		}
 		if (valor <= 0.01) {
 			throw new IllegalArgumentException(
@@ -96,9 +83,9 @@ public class CaixaDAO {
 
 	public static void main(String[] args) {
 		CaixaDAO caixa = new CaixaDAO();
-		Conta c = caixa.findConta("100", "123");
+		cadastro c = caixa.findcadastro("100", "123");
 		if (c == null) {
-			System.out.println("Conta não encontrada!");
+			System.out.println("cadastro não encontrado!");
 		} else {
 			System.out.println(c);
 			caixa.depositar(c, 112.45);
