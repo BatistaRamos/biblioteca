@@ -1,0 +1,58 @@
+CREATE DATABASE biblioteca
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Portuguese_Brazil.1252'
+       LC_CTYPE = 'Portuguese_Brazil.1252'
+       CONNECTION LIMIT = -1;
+	   
+
+
+-- Table: biblioteca
+
+-- DROP TABLE biblioteca;
+
+CREATE TABLE biblioteca
+(
+  id serial NOT NULL,
+  titulo character varying,
+  autor character varying,
+  editora character varying,
+  CONSTRAINT biblioteca_pkey PRIMARY KEY (id )
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE biblioteca
+  OWNER TO postgres;
+
+-- Table: operacoes
+
+-- DROP TABLE operacoes;
+
+CREATE TABLE operacoes
+(
+  id serial NOT NULL,
+  biblioteca integer,
+  valor numeric,
+  CONSTRAINT operacoes_pkey PRIMARY KEY (id ),
+  CONSTRAINT biblioteca_pk FOREIGN KEY (biblioteca)
+      REFERENCES biblioteca (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE operacoes
+  OWNER TO postgres;
+
+-- Index: fki_biblioteca_pk
+
+-- DROP INDEX fki_biblioteca_pk;
+
+CREATE INDEX fki_biblioteca_pk
+  ON operacoes
+  USING btree
+  (biblioteca );
+
+  
