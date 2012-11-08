@@ -82,7 +82,7 @@ public class bibliotecaDAO {
 	}
 
 	public static void main(String[] args) {
-		CaixaDAO caixa = new CaixaDAO();
+		bibliotecaDAO caixa = new bibliotecaDAO();
 		cadastro c = caixa.findcadastro("100", "123");
 		if (c == null) {
 			System.out.println("cadastro não encontrado!");
