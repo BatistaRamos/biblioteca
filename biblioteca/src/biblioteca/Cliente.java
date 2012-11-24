@@ -4,12 +4,12 @@
 
 package biblioteca;
 
-public class cadastro {
+public class Cliente {
 	private int id;
 	private String numeroCadastro;
 	private String cpfCliente;
 
-	public cadastro(int id, String numeroCadastro, String cpfCliente) {
+	public Cliente(int id, String numeroCadastro, String cpfCliente) {
 		super();
 		this.id = id;
 		this.numeroCadastro = numeroCadastro;

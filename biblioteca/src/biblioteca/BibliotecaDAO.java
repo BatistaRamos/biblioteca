@@ -6,19 +6,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
-import biblioteca.cadastro;
+import biblioteca.Cliente;
 
-public class bibliotecaDAO {
-
-
+public class BibliotecaDAO {
 
 
 
-	private static final String selectFindcadastro = "select * from cadastros where numero = ? and senha = ?";
-	private static final String insertOperacao = "insert into operacoes(cadastro, valor) values (?, ?)";
+
+
+	private static final String selectFindcadastro = "select * from clientes where numeroCadastro = 1 and ";
+	private static final String insertOperacao = "insert into operacoes(livroemprestado, livrodevolvido) values (?, ?)";
 
 	
-	public cadastro findcadastro(String numero, String senha) {
+	public Cliente findcadastro(String numero, String senha) {
 		if (numero == null) {
 			throw new IllegalArgumentException(
 					"O número da cadastro não pode ser null.");
@@ -27,7 +27,7 @@ public class bibliotecaDAO {
 			throw new IllegalArgumentException(
 					"A senha da cadastro não pode ser null.");
 		}
-		cadastro c = null;
+		Cliente c = null;
 
 		try {
 			Connection con = DriverManager.getConnection(
@@ -42,7 +42,7 @@ public class bibliotecaDAO {
 				int id = rs.getInt("id");
 				String cpf = rs.getString("cpf");
 				String num = rs.getString("numero");
-				c = new cadastro(id, num, cpf);
+				c = new Cliente(id, num, cpf);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class bibliotecaDAO {
 		return c;
 	}
 
-	public void depositar(cadastro c, double valor) {
+	public void depositar(Cliente c, double valor) {
 		if (c == null) {
 			throw new IllegalArgumentException("A cadastro não pode ser null!");
 		}
@@ -82,8 +82,8 @@ public class bibliotecaDAO {
 	}
 
 	public static void main(String[] args) {
-		bibliotecaDAO caixa = new bibliotecaDAO();
-		cadastro c = caixa.findcadastro("100", "123");
+		BibliotecaDAO caixa = new BibliotecaDAO();
+		Cliente c = caixa.findcadastro("100", "123");
 		if (c == null) {
 			System.out.println("cadastro não encontrado!");
 		} else {

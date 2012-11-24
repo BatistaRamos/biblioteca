@@ -1,5 +1,5 @@
 package biblioteca;
 
-public class operacao {
+public class Livro {
 
 }
